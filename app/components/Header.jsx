@@ -117,7 +117,7 @@ export default function Header() {
             transition={{ duration: 0.5 }}
             className="text-2xl font-bold text-primary"
           >
-            Diego Li
+            Portfolio
           </motion.div>
 
           <div className="hidden md:flex items-center space-x-6">
