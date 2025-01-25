@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import Link from "next/link";
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -22,28 +23,7 @@ export default function Header() {
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
-
-    const sections = navItems.map((item) => item.name.toLowerCase());
-    const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
-
-    if (scrollPosition >= documentHeight - 10) {
-      setActiveSection("contact");
-    } else {
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
-    }
-
     const scrollProgress =
       (window.scrollY / (documentHeight - window.innerHeight)) * 100;
     setScrollProgress(scrollProgress);
@@ -54,39 +34,95 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const scrollToSection = (href) => {
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-80px 0px -40% 0px", // Adjust the margins to ensure the section is truly visible before triggering
+      threshold: 0.1, // This means at least 10% of the section must be visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Set the active section only if it is intersecting
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    navItems.forEach(({ href }) => {
+      const section = document.querySelector(href);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = useCallback((href) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const yOffset = -80;
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
     setIsOpen(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && !event.target.closest("nav")) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const NavLink = ({ href, children, className, onClick }) => (
+    <Link href={href} passHref>
+      <motion.a
+        className={className}
+        onClick={onClick}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {children}
+      </motion.a>
+    </Link>
+  );
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md shadow-md"
+          ? "bg-background/95 backdrop-blur-md shadow-md"
           : "bg-transparent"
       }`}
     >
       <motion.div
         className="h-1 bg-primary fixed top-0 left-0 right-0 z-50"
-        style={{ width: `${scrollProgress}%` }}
+        initial={{ width: "0%" }}
+        animate={{ width: `${scrollProgress}%` }}
+        transition={{ duration: 0.1 }}
       />
+
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold"
+            className="text-2xl font-bold text-primary"
           >
-            Portfolio
+            Diego Li
           </motion.div>
+
           <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
-              <motion.a
+              <NavLink
                 key={item.name}
                 href={item.href}
                 onClick={(e) => {
@@ -98,19 +134,18 @@ export default function Header() {
                     ? "text-primary font-semibold"
                     : ""
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 {item.name}
-              </motion.a>
+              </NavLink>
             ))}
             <ThemeToggle />
           </div>
+
           <div className="md:hidden flex items-center">
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground focus:outline-none ml-4"
+              className="text-foreground focus:outline-none ml-4 p-2 rounded-full transition-colors"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {isOpen ? (
@@ -121,33 +156,38 @@ export default function Header() {
             </button>
           </div>
         </div>
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden mt-4"
+              className="md:hidden mt-4 bg-background/95 backdrop-blur-md rounded-lg shadow-lg border border-border absolute top-full left-4 right-4 overflow-hidden"
             >
-              {navItems.map((item) => (
-                <motion.a
+              {navItems.map((item, index) => (
+                <motion.div
                   key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.href);
-                  }}
-                  className={`block py-2 text-foreground hover:text-primary transition-colors ${
-                    activeSection === item.name.toLowerCase()
-                      ? "text-primary font-semibold"
-                      : ""
-                  }`}
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
                 >
-                  {item.name}
-                </motion.a>
+                  <NavLink
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item.href);
+                    }}
+                    className={`block py-3 px-4 text-foreground transition-colors ${
+                      activeSection === item.name.toLowerCase()
+                        ? "text-primary font-semibold"
+                        : ""
+                    }`}
+                  >
+                    {item.name}
+                  </NavLink>
+                </motion.div>
               ))}
             </motion.div>
           )}
