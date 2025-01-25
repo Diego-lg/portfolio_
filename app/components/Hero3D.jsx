@@ -15,7 +15,7 @@ const Hero3D = () => {
       75,
       mountRef.current.clientWidth / mountRef.current.clientHeight,
       0.1,
-      1000,
+      1000
     )
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
 
@@ -75,10 +75,10 @@ const Hero3D = () => {
     return () => {
       window.removeEventListener("resize", handleResize)
       mountRef.current?.removeChild(renderer.domElement)
-    }
+    };
   }, [])
 
-  return <div ref={mountRef} className="w-full h-64 md:h-96" />
+  return <div ref={mountRef} className="w-full h-64 md:h-96" />;
 }
 
 export default Hero3D

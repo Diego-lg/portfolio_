@@ -19,9 +19,7 @@ export const ThemeToggle = () => {
 
   return (
     (<motion.button
-      className={`w-12 h-6 ${
-        resolvedTheme === "dark" ? "bg-gray-600" : "bg-gray-300"
-      } rounded-full p-1 flex items-center`}
+      className={`w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full p-1 flex items-center`}
       onClick={toggleTheme}
       whileTap={{ scale: 0.95 }}>
       <motion.div

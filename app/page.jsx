@@ -1,7 +1,7 @@
 import Header from "./components/Header"
 import Introduction from "./components/Introduction"
 import Skills from "./components/Skills"
-import Projects from "./components/Projects"
+import ProjectShowcase from "./components/ProjectShowcase"
 import Contact from "./components/Contact"
 import Timeline from "./components/Timeline"
 import BlogPosts from "./components/BlogPosts"
@@ -15,7 +15,7 @@ export default function Home() {
       <main className="relative z-10">
         <Introduction />
         <Skills />
-        <Projects />
+        <ProjectShowcase />
         <Timeline />
         <BlogPosts />
         <Contact />

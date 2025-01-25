@@ -71,7 +71,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
 }
 
@@ -124,4 +124,23 @@ header.scrolled {
 
 .dark header.scrolled {
   @apply bg-background/80 shadow-md;
+}
+
+/* Falling meteors background */
+#skills {
+}
+
+/* Ensure meteors are visible */
+#skills canvas {
+  opacity: 0.7;
+}
+
+/* Font styles */
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Add more specific font styles for dark mode if needed */
+.dark .font-sans {
+  /* Add any specific dark mode font styles here */
 }
