@@ -9,7 +9,13 @@ import {
   ToastProvider,
   ToastViewport,
 } from "@/components/ui/toast"; // Adjust the path if necessary
-import type { ToastProps } from "@/components/ui/toast"; // Adjust based on the types you defined
+// Define ToastProps locally if it does not exist in the module
+type ToastProps = {
+  open: boolean;
+  onOpenChange?: (open: boolean) => void;
+  // Add other properties as needed
+};
+import * as ToastPrimitives from "@radix-ui/react-toast";
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
