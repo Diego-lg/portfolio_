@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import Header from "./components/Header"
 import Introduction from "./components/Introduction"
 import Skills from "./components/Skills"
@@ -10,7 +9,8 @@ import { ScrollToTopButton } from "./components/ScrollToTopButton"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    (<div
+      className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       <main className="relative z-10">
         <Introduction />
@@ -21,7 +21,7 @@ export default function Home() {
         <Contact />
       </main>
       <ScrollToTopButton />
-    </div>
-  )
+    </div>)
+  );
 }
 

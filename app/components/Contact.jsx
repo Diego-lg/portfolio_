@@ -18,13 +18,12 @@ export default function Contact() {
   }
 
   return (
-    <motion.section
+    (<motion.section
       id="contact"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="py-20"
-    >
+      className="py-20">
       <h2 className="text-3xl font-bold mb-8 text-center">Contact Me</h2>
       <motion.form
         ref={formRef}
@@ -32,8 +31,7 @@ export default function Contact() {
         animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="max-w-md mx-auto bg-card p-8 rounded-lg shadow-lg border border-border"
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="name" className="block mb-2 text-sm font-medium text-foreground">
             Name
@@ -44,11 +42,12 @@ export default function Contact() {
             value={formState.name}
             onChange={(e) => setFormState({ ...formState, name: e.target.value })}
             className="w-full p-2 bg-background border-input rounded"
-            required
-          />
+            required />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-foreground">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-foreground">
             Email
           </label>
           <Input
@@ -57,11 +56,12 @@ export default function Contact() {
             value={formState.email}
             onChange={(e) => setFormState({ ...formState, email: e.target.value })}
             className="w-full p-2 bg-background border-input rounded"
-            required
-          />
+            required />
         </div>
         <div className="mb-4">
-          <label htmlFor="message" className="block mb-2 text-sm font-medium text-foreground">
+          <label
+            htmlFor="message"
+            className="block mb-2 text-sm font-medium text-foreground">
             Message
           </label>
           <Textarea
@@ -70,14 +70,13 @@ export default function Contact() {
             onChange={(e) => setFormState({ ...formState, message: e.target.value })}
             className="w-full p-2 bg-background border-input rounded"
             rows={4}
-            required
-          />
+            required />
         </div>
         <Button type="submit" className="w-full">
           Send Message
         </Button>
       </motion.form>
-    </motion.section>
-  )
+    </motion.section>)
+  );
 }
 

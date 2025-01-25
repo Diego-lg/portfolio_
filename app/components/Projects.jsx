@@ -44,13 +44,12 @@ export default function Projects() {
   }
 
   return (
-    <motion.section
+    (<motion.section
       id="projects"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="py-20"
-    >
+      className="py-20">
       <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
       <div className="relative max-w-3xl mx-auto">
         <motion.div
@@ -59,13 +58,11 @@ export default function Projects() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-card rounded-lg overflow-hidden shadow-lg border border-border"
-        >
+          className="bg-card rounded-lg overflow-hidden shadow-lg border border-border">
           <img
             src={projects[currentIndex].image || "/placeholder.svg"}
             alt={projects[currentIndex].title}
-            className="w-full h-64 object-cover"
-          />
+            className="w-full h-64 object-cover" />
           <div className="p-6">
             <h3 className="text-2xl font-semibold mb-2">{projects[currentIndex].title}</h3>
             <p className="text-muted-foreground">{projects[currentIndex].description}</p>
@@ -73,18 +70,16 @@ export default function Projects() {
         </motion.div>
         <button
           onClick={prevProject}
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-background text-foreground p-2 rounded-full shadow-lg"
-        >
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-background text-foreground p-2 rounded-full shadow-lg">
           <ChevronLeft size={24} />
         </button>
         <button
           onClick={nextProject}
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-background text-foreground p-2 rounded-full shadow-lg"
-        >
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-background text-foreground p-2 rounded-full shadow-lg">
           <ChevronRight size={24} />
         </button>
       </div>
-    </motion.section>
-  )
+    </motion.section>)
+  );
 }
 

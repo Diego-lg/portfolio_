@@ -50,7 +50,7 @@ export default function Header() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll])
 
   const scrollToSection = (href) => {
@@ -62,20 +62,20 @@ export default function Header() {
   }
 
   return (
-    <header
+    (<header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
-      }`}
-    >
-      <motion.div className="h-1 bg-primary fixed top-0 left-0 right-0 z-50" style={{ width: `${scrollProgress}%` }} />
+      }`}>
+      <motion.div
+        className="h-1 bg-primary fixed top-0 left-0 right-0 z-50"
+        style={{ width: `${scrollProgress}%` }} />
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold"
-          >
+            className="text-2xl font-bold">
             Diego Li
           </motion.div>
           <div className="hidden md:flex items-center space-x-6">
@@ -91,8 +91,7 @@ export default function Header() {
                   activeSection === item.name.toLowerCase() ? "text-primary font-semibold" : ""
                 }`}
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+                whileTap={{ scale: 0.95 }}>
                 {item.name}
               </motion.a>
             ))}
@@ -103,8 +102,7 @@ export default function Header() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-foreground focus:outline-none ml-4"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-            >
+              aria-label={isOpen ? "Close menu" : "Open menu"}>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -116,8 +114,7 @@ export default function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden mt-4"
-            >
+              className="md:hidden mt-4">
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
@@ -130,8 +127,7 @@ export default function Header() {
                     activeSection === item.name.toLowerCase() ? "text-primary font-semibold" : ""
                   }`}
                   whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                  whileTap={{ scale: 0.95 }}>
                   {item.name}
                 </motion.a>
               ))}
@@ -139,7 +135,7 @@ export default function Header() {
           )}
         </AnimatePresence>
       </nav>
-    </header>
-  )
+    </header>)
+  );
 }
 

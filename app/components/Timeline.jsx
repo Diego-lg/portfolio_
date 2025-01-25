@@ -31,7 +31,7 @@ const timelineItems = [
 
 const Timeline = () => {
   return (
-    <section id="experience" className="py-20">
+    (<section id="experience" className="py-20">
       <h2 className="text-3xl font-bold mb-8 text-center">Experience & Education</h2>
       <div className="max-w-4xl mx-auto">
         {timelineItems.map((item, index) => (
@@ -40,11 +40,11 @@ const Timeline = () => {
             className="mb-8 flex"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
+            transition={{ duration: 0.5, delay: index * 0.1 }}>
             <div className="flex flex-col items-center mr-4">
               <div className="w-px h-full bg-border"></div>
-              <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+              <div
+                className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
                 <div className="w-3 h-3 rounded-full bg-background"></div>
               </div>
             </div>
@@ -59,8 +59,8 @@ const Timeline = () => {
           </motion.div>
         ))}
       </div>
-    </section>
-  )
+    </section>)
+  );
 }
 
 export default Timeline

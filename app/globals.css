@@ -97,7 +97,6 @@ header {
 
 /* Ensure Three.js canvas is behind all content */
 canvas {
-  position: fixed !important;
   top: 0;
   left: 0;
   width: 100% !important;
@@ -126,4 +125,3 @@ header.scrolled {
 .dark header.scrolled {
   @apply bg-background/80 shadow-md;
 }
-

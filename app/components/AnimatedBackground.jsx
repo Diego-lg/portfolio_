@@ -78,10 +78,10 @@ const AnimatedBackground = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize)
-    }
+    };
   }, [theme])
 
-  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10" />
+  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10" />;
 }
 
 export default AnimatedBackground

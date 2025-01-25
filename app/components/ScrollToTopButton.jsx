@@ -18,7 +18,7 @@ export const ScrollToTopButton = () => {
 
     window.addEventListener("scroll", toggleVisibility)
 
-    return () => window.removeEventListener("scroll", toggleVisibility)
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, [])
 
   const scrollToTop = () => {
@@ -29,24 +29,22 @@ export const ScrollToTopButton = () => {
   }
 
   return (
-    <AnimatePresence>
+    (<AnimatePresence>
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-4 right-4 z-50"
-        >
+          className="fixed bottom-4 right-4 z-50">
           <button
             onClick={scrollToTop}
             className="bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 transition-colors duration-300"
-            aria-label="Scroll to top"
-          >
+            aria-label="Scroll to top">
             <ChevronUp size={24} />
           </button>
         </motion.div>
       )}
-    </AnimatePresence>
-  )
+    </AnimatePresence>)
+  );
 }
 

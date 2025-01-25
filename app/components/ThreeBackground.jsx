@@ -75,12 +75,15 @@ const ThreeBackground = ({ limitHeight = false }) => {
     return () => {
       window.removeEventListener("resize", handleResize)
       mountRef.current?.removeChild(renderer.domElement)
-    }
+    };
   }, [theme, systemTheme, limitHeight])
 
   return (
-    <div ref={mountRef} className={`absolute inset-0 ${limitHeight ? "h-screen" : ""}`} style={{ height: "100vh" }} />
-  )
+    (<div
+      ref={mountRef}
+      className={`absolute inset-0 ${limitHeight ? "h-screen" : ""}`}
+      style={{ height: "100vh" }} />)
+  );
 }
 
 export default ThreeBackground

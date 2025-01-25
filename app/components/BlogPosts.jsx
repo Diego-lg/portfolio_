@@ -26,7 +26,7 @@ const blogPosts = [
 
 const BlogPosts = () => {
   return (
-    <section id="blog" className="py-20">
+    (<section id="blog" className="py-20">
       <h2 className="text-3xl font-bold mb-8 text-center">Latest Blog Posts</h2>
       <div className="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {blogPosts.map((post, index) => (
@@ -35,8 +35,7 @@ const BlogPosts = () => {
             className="bg-card p-6 rounded-lg shadow-md border border-border"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
+            transition={{ duration: 0.5, delay: index * 0.1 }}>
             <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
             <p className="text-muted-foreground mb-4">{post.excerpt}</p>
             <div className="flex justify-between items-center">
@@ -48,8 +47,8 @@ const BlogPosts = () => {
           </motion.article>
         ))}
       </div>
-    </section>
-  )
+    </section>)
+  );
 }
 
 export default BlogPosts

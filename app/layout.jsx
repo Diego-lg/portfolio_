@@ -15,14 +15,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} font-sans`}>
+    (<html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} font-sans`}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           {children}
         </ThemeProvider>
       </body>
-    </html>
-  )
+    </html>)
+  );
 }
 
